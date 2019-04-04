@@ -115,13 +115,13 @@ class Table extends Component {
           <tbody>
             {this.props.todos.map((todo ) => (
 
-              <tr key={todo.completed}>
+              <tr key={todo.id}>
                 <td
                   style={{
                     textDecoration: todo.completed ? "line-through" : "none"
                   }}>
 
-                 {todo.completed} {todo.completed === true ? "Completed" : ""}
+                 {todo.completed==true ? todo.text : ""} {todo.completed === true ? "Completed" : ""}
 
                 </td>
                 </tr>
@@ -152,7 +152,7 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = state => {
   return { todos: getVisibleTodos(state.todos, state.visibilityFilter),
     visibilityFilter: state.visibilityFilter,
-    
+
  };
 };
 
