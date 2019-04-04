@@ -7,18 +7,23 @@ import {
 } from "../actions/actionCreator";
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from "../actions/actionsTypes";
 import { bindActionCreators } from "redux";
-import { todoReducer } from '../reducers/TodoReducer';
 
 class Table extends Component {
   render() {
 
+//Confirmation function.
+
+
+     var a = confrim("are you sure you want to delete?")
     return (
+
 
       <div className="col-lg-10 offset-lg-1 col-md-10 col-sm-12 col-xs-12">
 
+
         <nav style={{ marginTop: "60px" }}>
             <button
-              onClick={() => this.props.setVisibilityFilter(SHOW_ALL, SHOW_COMPLETED)}
+              onClick={() => this.props.setVisibilityFilter(SHOW_ALL)}
             >
              All
             </button>
@@ -38,6 +43,7 @@ class Table extends Component {
 
 
         {this.props.todos.length !== 0 ? (
+
 
           <table
             style={{ marginTop: "60px" }}
@@ -61,10 +67,14 @@ class Table extends Component {
                   >
                    {todo.text}
                   </td>
+
                   <td>
+
                     <span
                       className="fas fa-minus-circle"
-                      onClick={() => this.props.deleteTodo(todo.id)  //line to call confirmation function, with todo.id passed into it
+
+                      onClick={(a) => (a==true) ?
+                      this.props.deleteTodo(todo.id) : alert("cancelled") //line to call confirmation function, with todo.id passed into it
                      }
 
                       style={{
@@ -73,6 +83,10 @@ class Table extends Component {
                         marginRight: "20px"
                       }}
                     />
+
+
+
+
                     <span
                       className="fas fa-check-circle"
                       onClick={() => this.props.toggleTodo(todo.id)
@@ -113,16 +127,16 @@ class Table extends Component {
           </thead>
 
           <tbody>
-            {this.props.todos.map((todo ) => (
+            {this.props.todos.map(todo => (
 
               <tr key={todo.completed}>
                 <td
                   style={{
                     textDecoration: todo.completed ? "line-through" : "none"
-                  }}>
+                  }}
+                >
 
                  {todo.completed} {todo.completed === true ? "Completed" : ""}
-
                 </td>
                 </tr>
            ))}
@@ -151,8 +165,7 @@ const getVisibleTodos = (todos, filter) => {
 
 const mapStateToProps = state => {
   return { todos: getVisibleTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter,
-    
+    visibilityFilter: state.visibilityFilter
  };
 };
 

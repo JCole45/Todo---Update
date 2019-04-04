@@ -1,4 +1,4 @@
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from './actionsTypes'
+import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, CONFIRM_DELETE } from './actionsTypes'
 
 let TodoId = 2
 
@@ -21,4 +21,9 @@ export const toggleTodo = (id) => ({
 export const setVisibilityFilter = filter => ({
   type: SET_VISIBILITY_FILTER,
   filter
+})
+
+export const confirmDelete = (id) => ({
+  type: CONFIRM_DELETE,
+  id: id
 })

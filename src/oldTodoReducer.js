@@ -11,7 +11,7 @@
 //     },
 // ]
 
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, CONFIRM_DELETE} from '../actions/actionsTypes'
+import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO} from '../actions/actionsTypes'
 
 const INITIAL_DATA = []
 
@@ -31,14 +31,9 @@ const TodoReducer = (state=INITIAL_DATA, action) => {
           ? {...todo, completed: !todo.completed}
           : todo
          )
-
         case REMOVE_TODO:
-        var deleteNow
-        (window.confirm("do you want to remove todo now?")) ?
-         deleteNow= state.filter(todo =>
-          todo.id !== parseInt(action.id)) : alert("cancelled")
-          return deleteNow
-         alert(parseInt(action.id))
+        const numIndex = parseInt(action.id)
+        return state.filter(todo => todo.id !== numIndex);
         default:
         return state
     }

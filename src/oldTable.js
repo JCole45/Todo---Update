@@ -10,28 +10,41 @@ import { bindActionCreators } from "redux";
 
 class Table extends Component {
   render() {
+
+//Confirmation function.
+    function deleteConfirm (a) {
+      var confirm = window.confirm("are you sure you want this item removed?")
+
+      if(confirm==true) {
+        this.props.deleteTodo(a)
+      } else {
+       return("cancelled")
+      }
+    }
+
+
     return (
+
       <div className="col-lg-10 offset-lg-1 col-md-10 col-sm-12 col-xs-12">
+
         <nav style={{ marginTop: "60px" }}>
             <button
-              className={(this.props.visibilityFilter === SHOW_ALL ? 'active' : '') }
-              onClick={() => this.props.setVisibilityFilter(SHOW_ALL, SHOW_COMPLETED)}
+              onClick={() => this.props.setVisibilityFilter(SHOW_ALL)}
             >
              All
             </button>
             <button
-               className={ (this.props.visibilityFilter === SHOW_COMPLETED ? 'active' : '') }
               onClick={() => this.props.setVisibilityFilter(SHOW_COMPLETED)}
             >
               Completed
             </button>
             <button
-               className={ (this.props.visibilityFilter === SHOW_ACTIVE ? 'active' : '') }
-              onClick={() => this.props.setVisibilityFilter(SHOW_ACTIVE)}
+              onClick={() => this.props.setVisibilityFilter(SHOW_ACTIVE, SHOW_COMPLETED)}
             >
               Active
             </button>
         </nav>
+
 
 
 
@@ -57,13 +70,13 @@ class Table extends Component {
                       textDecoration: todo.completed ? "line-through" : "none"
                     }}
                   >
-                    {todo.text} {todo.completed === true ? "(completed)" : ""}
+                   {todo.text}
                   </td>
                   <td>
                     <span
                       className="fas fa-minus-circle"
-                      onClick={() =>
-                      this.props.deleteTodo(todo.id)}
+                      onClick={() => deleteConfirm(todo.id)  //line to call confirmation function, with todo.id passed into it
+                     }
 
                       style={{
                         color: "white",
@@ -73,7 +86,8 @@ class Table extends Component {
                     />
                     <span
                       className="fas fa-check-circle"
-                      onClick={() => this.props.toggleTodo(todo.id)}
+                      onClick={() => this.props.toggleTodo(todo.id)
+                      }
                       style={{ color: "white", fontSize: "20pt" }}
                     />
                   </td>
@@ -82,6 +96,7 @@ class Table extends Component {
 
             </tbody>
           </table>
+
 
         )
 
@@ -96,7 +111,37 @@ class Table extends Component {
               Todo List is empty or Filter results show no results
             </div>
           </div>
-        )}{" "}
+        )}
+
+        <table
+          style={{ marginTop: "60px" }}>
+
+
+          <thead>
+            <tr>
+              <th >Completed</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.props.todos.map(todo => (
+
+              <tr key={todo.completed}>
+                <td
+                  style={{
+                    textDecoration: todo.completed ? "line-through" : "none"
+                  }}
+                >
+
+                 {todo.completed} {todo.completed === true ? "Completed" : ""}
+                </td>
+                </tr>
+           ))}
+
+          </tbody>
+        </table>
+
+         {" "}
       </div>
     );
   }
