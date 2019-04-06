@@ -18,6 +18,11 @@ class CreateTodo extends Component {
         })
     }
 
+    handleKeyPress (event) {
+      if(event.key=== 'Enter') { this.props.addTodo(this.state.todotext);
+         this.setState({ todotext: '' }) }
+    }
+
     render(){
         return (
                   <div className="form-group row">
@@ -25,7 +30,8 @@ class CreateTodo extends Component {
                       <input onChange={this.onChangeTodoText}
                       value={this.state.todotext}
                       type="text"
-                      placeholder="add todo here"/>
+                      placeholder="add todo here"
+                      onKeyPress={this.handleKeyPress.bind(this)}/>
 
                       <button type="button"
                       onClick={ () => this.setState({ todotext: '' }) }

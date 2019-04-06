@@ -5,7 +5,7 @@ let TodoId = 2
 export const addTodo = text => ({
     type: ADD_TODO,
     id: TodoId++,
-    text
+    text,
 })
 
 export const deleteTodo = (id) => ({

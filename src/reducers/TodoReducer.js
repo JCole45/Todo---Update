@@ -18,13 +18,17 @@ const INITIAL_DATA = []
 const TodoReducer = (state=INITIAL_DATA, action) => {
     switch (action.type){
         case ADD_TODO:
-        return [
+        var cont = [
             ...state,{
                 id: action.id,
                 text: action.text,
                 completed: false,
             }
-        ]
+               ]
+        return cont.filter(sat =>
+        sat.completed !== true)
+
+
         case TOGGLE_TODO:
         return state.map(todo =>
         (todo.id === action.id)
@@ -32,13 +36,13 @@ const TodoReducer = (state=INITIAL_DATA, action) => {
           : todo
          )
 
+
         case REMOVE_TODO:
         var deleteNow
         (window.confirm("do you want to remove todo now?")) ?
          deleteNow= state.filter(todo =>
           todo.id !== parseInt(action.id)) : alert("cancelled")
           return deleteNow
-         alert(parseInt(action.id))
         default:
         return state
     }

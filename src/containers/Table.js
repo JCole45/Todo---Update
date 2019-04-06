@@ -12,6 +12,11 @@ import { todoReducer } from '../reducers/TodoReducer';
 class Table extends Component {
   render() {
 
+    function deleteRow(btn) {
+  var row = btn.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
     return (
 
       <div className="col-lg-10 offset-lg-1 col-md-10 col-sm-12 col-xs-12">
@@ -59,7 +64,7 @@ class Table extends Component {
                       textDecoration: todo.completed ? "line-through" : "none"
                     }}
                   >
-                   {todo.text}
+                   {todo.completed !==true ? todo.text : null}
                   </td>
                   <td>
                     <span
@@ -121,9 +126,24 @@ class Table extends Component {
                     textDecoration: todo.completed ? "line-through" : "none"
                   }}>
 
-                 {todo.completed==true ? todo.text : ""} {todo.completed === true ? "Completed" : ""}
+                 {todo.completed==true ? todo.text : null} {todo.completed === true ? "completed" : ""}
 
                 </td>
+
+                <td>
+                  <button
+                    className="fas fa-minus-circle"
+                    onClick={() => this.props.deleteTodo(todo.id)  //line to call confirmation function, with todo.id passed into it
+                   }
+                  > delete </button>
+                  <button
+                    className="fas fa-check-circle"
+                    onClick={() => this.props.toggleTodo(todo.id)
+                    }
+                  > uncheck </button>
+                </td>
+
+
                 </tr>
            ))}
 
