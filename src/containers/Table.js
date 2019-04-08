@@ -64,27 +64,25 @@ class Table extends Component {
                       textDecoration: todo.completed ? "line-through" : "none"
                     }}
                   >
-                   {todo.completed !==true ? todo.text : null}
-                  </td>
-                  <td>
-                    <span
-                      className="fas fa-minus-circle"
-                      onClick={() => this.props.deleteTodo(todo.id)  //line to call confirmation function, with todo.id passed into it
-                     }
+                   {todo.completed !==true && todo.text.length !==0 ? "-"+todo.text : null}
+                   {todo.completed !==true ?  <button className="fas fa-minus-circle"
+                                         onClick={() => this.props.deleteTodo(todo.id)}  //line to call confirmation function, with todo.id passed into it
+                                       style={{ color: "black",
+                                                  fontSize: "10pt",
+                                                 marginRight: "10px"
+                                               }}> delete </button>  : null }
 
-                      style={{
-                        color: "white",
-                        fontSize: "20pt",
-                        marginRight: "20px"
-                      }}
-                    />
-                    <span
-                      className="fas fa-check-circle"
-                      onClick={() => this.props.toggleTodo(todo.id)
-                      }
-                      style={{ color: "white", fontSize: "20pt" }}
-                    />
+                  {todo.completed !==true && todo.text.length !== 0 ?
+                                        <button
+                                        className="fas fa-check-circle"
+                                        onClick={() => this.props.toggleTodo(todo.id)
+                                        }
+                                        style={{ color: "black", fontSize: "10", marginRight: "10px" }}> done
+                                        </button> : null}
+
                   </td>
+
+
                 </tr>
               ))}
 
@@ -101,7 +99,14 @@ class Table extends Component {
             style={{ marginTop: "50px" }}
             className="col-lg-10 col-md-10 col-xs-12 col-sm-12 offset-lg-1"
           >
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert" style={
+              {color: "red",
+              fontSize: "13pt",
+              marginRight: "10px"
+            }}
+
+
+            >
               Todo List is empty or Filter results show no results
             </div>
           </div>
@@ -128,20 +133,21 @@ class Table extends Component {
 
                  {todo.completed==true ? todo.text : null} {todo.completed === true ? "completed" : ""}
 
+                 {todo.completed==true ?
+                   <button
+                   className="fas fa-minus-circle"
+                   onClick={() => this.props.deleteTodo(todo.id)}>  
+                   delete </button> : null }
+
+                 {todo.completed==true ?
+                   <button
+                     className="fas fa-check-circle"
+                     onClick={() => this.props.toggleTodo(todo.id)
+                     }
+                   > uncheck </button> : null}
+
                 </td>
 
-                <td>
-                  <button
-                    className="fas fa-minus-circle"
-                    onClick={() => this.props.deleteTodo(todo.id)  //line to call confirmation function, with todo.id passed into it
-                   }
-                  > delete </button>
-                  <button
-                    className="fas fa-check-circle"
-                    onClick={() => this.props.toggleTodo(todo.id)
-                    }
-                  > uncheck </button>
-                </td>
 
 
                 </tr>
