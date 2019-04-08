@@ -41,16 +41,15 @@ class Table extends Component {
 
 
 
-
         {this.props.todos.length !== 0 ? (
 
           <table
             style={{ marginTop: "60px" }}
-            className="table table-hover table-dark">
+            >
 
             <thead>
               <tr>
-                <th scope="col">Todos</th>
+                <th scope="col" style={{color: "red"}}>Active</th>
                 <th scope="col">Actions</th>
               </tr>
 
@@ -77,7 +76,7 @@ class Table extends Component {
                                         className="fas fa-check-circle"
                                         onClick={() => this.props.toggleTodo(todo.id)
                                         }
-                                        style={{ color: "black", fontSize: "10", marginRight: "10px" }}> done
+                                        style={{ color: "black", fontSize: "10", marginRight: "10px" }}> check
                                         </button> : null}
 
                   </td>
@@ -112,13 +111,15 @@ class Table extends Component {
           </div>
         )}
 
-        <table
-          style={{ marginTop: "60px" }}>
 
+
+         {this.props.todos.completed !== true ? (
+         <table
+          style={{ marginTop: "60px" }}>
 
           <thead>
             <tr>
-              <th >Completed</th>
+              <th style={{color: "green"}}>Completed:</th>
             </tr>
           </thead>
 
@@ -136,7 +137,7 @@ class Table extends Component {
                  {todo.completed==true ?
                    <button
                    className="fas fa-minus-circle"
-                   onClick={() => this.props.deleteTodo(todo.id)}>  
+                   onClick={() => this.props.deleteTodo(todo.id)}>
                    delete </button> : null }
 
                  {todo.completed==true ?
@@ -155,6 +156,11 @@ class Table extends Component {
 
           </tbody>
         </table>
+      )
+      :
+      (
+        ""
+      )}
 
          {" "}
       </div>

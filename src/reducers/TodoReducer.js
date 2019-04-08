@@ -25,8 +25,7 @@ const TodoReducer = (state=INITIAL_DATA, action) => {
                 completed: false,
             }
                ]
-        return cont.filter(sat =>
-        sat.completed !== true)
+        return cont
 
 
         case TOGGLE_TODO:
@@ -38,6 +37,7 @@ const TodoReducer = (state=INITIAL_DATA, action) => {
 
 
         case REMOVE_TODO:
+        console.log(state)
         var deleteNow
         (window.confirm("do you want to remove todo now?")) ?
          deleteNow= state.filter(todo =>
